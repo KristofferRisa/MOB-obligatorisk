@@ -10,10 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+
+import org.json.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -21,12 +26,13 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "Convert.Express.Mobile";
+    public static final String TAG = "Convert.Express.Mobile";
 
     EditText input;
     ListView results;
     ArrayAdapter<String> adapter;
     ArrayList<String> listItems;
+    private JSONObject myObject;
 
     @Override
     protected void onStart() {
@@ -53,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         results.setAdapter(adapter);
 
-        new Currencies().execute("https://api.fixer.io/latest?base=NOK&symbols=USD");
+        new LoadCurrencies().execute("https://api.fixer.io/latest?base=NOK&symbols=USD");
 
         goButton.setOnClickListener(new View.OnClickListener()
         {
@@ -69,9 +75,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     }
 
-    class Currencies extends AsyncTask<String, String, String> {
+
+    class LoadCurrencies extends AsyncTask<String, String, String> {
 
         ProgressDialog pd;
 
@@ -100,11 +108,18 @@ public class MainActivity extends AppCompatActivity {
                 StringBuffer buffer = new StringBuffer();
                 String line = "";
 
+
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line+"\n");
                     Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
-
                 }
+
+                Gson gson = new Gson();
+                Currency currency = gson.fromJson(buffer.toString(), Currency.class);
+
+
+
+                Log.i(TAG,currency.base);
 
                 return buffer.toString();
 
@@ -131,9 +146,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if (pd.isShowing()){
-                pd.dismiss();
-            }
+//            if (pd.isShowing()){
+//                pd.dismiss();
+//            }
+            if(myObject != null)
+                showCurrencies();
         }
+    }
+
+    private void showCurrencies() {
+        //Log.ikc(TAG, myObject.(myObject, "$.data.data2.value"));
+        listItems.add(input.getText().toString());
+        adapter.notifyDataSetChanged();
     }
 }
