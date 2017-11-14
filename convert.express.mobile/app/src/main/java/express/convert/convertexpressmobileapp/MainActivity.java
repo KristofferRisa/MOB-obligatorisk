@@ -18,7 +18,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -48,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG,"onCreate");
         adapter = null;
         Button goButton = (Button)findViewById(R.id.goButton);
+
         input = (EditText)findViewById(R.id.input);
         listItems = new ArrayList<String>();
         //listItems.add("TEST");
@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
         results.setAdapter(adapter);
 
-        new LoadCurrencies().execute("https://api.fixer.io/latest?base=NOK&symbols=USD");
 
         goButton.setOnClickListener(new View.OnClickListener()
         {
@@ -68,18 +67,14 @@ public class MainActivity extends AppCompatActivity {
             {
                 listItems.clear();
                 Log.i(TAG, input.getText().toString());
-                listItems.add(input.getText().toString());
-                adapter.notifyDataSetChanged();
+                //listItems.add(input.getText().toString());
+                new loadData().execute("https://convert.express/api/converter?q=" + input.getText().toString());
             }
         });
-
-
-
-
     }
 
 
-    class LoadCurrencies extends AsyncTask<String, String, String> {
+    class loadData extends AsyncTask<String, String, String> {
 
         ProgressDialog pd;
 
@@ -93,13 +88,11 @@ public class MainActivity extends AppCompatActivity {
 
             HttpURLConnection connection = null;
             BufferedReader reader = null;
-            String url_select = "http://api.fixer.io/latest"; //?base={searchParameters.BaseIso}&symbols={searchParameters.ToIso}";
             try {
                 URL url = new URL(params[0]);
                 Log.i(TAG,"URL = " + params[0]);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
-
 
                 InputStream stream = connection.getInputStream();
 
@@ -108,21 +101,25 @@ public class MainActivity extends AppCompatActivity {
                 StringBuffer buffer = new StringBuffer();
                 String line = "";
 
-
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line+"\n");
-                    Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
+                    Log.i(TAG,"Response: " + line);
+                    listItems.add(line);
                 }
 
-                Gson gson = new Gson();
-                Currency currency = gson.fromJson(buffer.toString(), Currency.class);
 
+                //gson = new Gson();
+                //Todo
+                // Add new dynamic class object?
+                //ConvertExpressRespons response = gson.fromJson(buffer.toString(), ConvertExpressRespons.class);
 
+                //Log.i(TAG,response.Header);
+                //Log.i(TAG,response.Description.get(0));
 
-                Log.i(TAG,currency.base);
+                //adapter.notifyDataSetChanged();
 
+                Log.i(TAG,buffer.toString());
                 return buffer.toString();
-
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -149,14 +146,10 @@ public class MainActivity extends AppCompatActivity {
 //            if (pd.isShowing()){
 //                pd.dismiss();
 //            }
-            if(myObject != null)
-                showCurrencies();
+
+            adapter.notifyDataSetChanged();
+
         }
     }
 
-    private void showCurrencies() {
-        //Log.ikc(TAG, myObject.(myObject, "$.data.data2.value"));
-        listItems.add(input.getText().toString());
-        adapter.notifyDataSetChanged();
-    }
 }
