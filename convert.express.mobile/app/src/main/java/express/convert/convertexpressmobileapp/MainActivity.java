@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+
+import org.json.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,12 +25,13 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "Convert.Express.Mobile";
+    public static final String TAG = "Convert.Express.Mobile";
 
     EditText input;
     ListView results;
     ArrayAdapter<String> adapter;
     ArrayList<String> listItems;
+    private JSONObject myObject;
 
     @Override
     protected void onStart() {
@@ -42,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG,"onCreate");
         adapter = null;
         Button goButton = (Button)findViewById(R.id.goButton);
+
         input = (EditText)findViewById(R.id.input);
         listItems = new ArrayList<String>();
         //listItems.add("TEST");
@@ -53,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
         results.setAdapter(adapter);
 
-        new Currencies().execute("https://api.fixer.io/latest?base=NOK&symbols=USD");
 
         goButton.setOnClickListener(new View.OnClickListener()
         {
@@ -62,16 +67,14 @@ public class MainActivity extends AppCompatActivity {
             {
                 listItems.clear();
                 Log.i(TAG, input.getText().toString());
-                listItems.add(input.getText().toString());
-                adapter.notifyDataSetChanged();
+                //listItems.add(input.getText().toString());
+                new loadData().execute("https://convert.express/api/converter?q=" + input.getText().toString());
             }
         });
-
-
-
     }
 
-    class Currencies extends AsyncTask<String, String, String> {
+
+    class loadData extends AsyncTask<String, String, String> {
 
         ProgressDialog pd;
 
@@ -85,13 +88,11 @@ public class MainActivity extends AppCompatActivity {
 
             HttpURLConnection connection = null;
             BufferedReader reader = null;
-            String url_select = "http://api.fixer.io/latest"; //?base={searchParameters.BaseIso}&symbols={searchParameters.ToIso}";
             try {
                 URL url = new URL(params[0]);
                 Log.i(TAG,"URL = " + params[0]);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
-
 
                 InputStream stream = connection.getInputStream();
 
@@ -102,12 +103,23 @@ public class MainActivity extends AppCompatActivity {
 
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line+"\n");
-                    Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
-
+                    Log.i(TAG,"Response: " + line);
+                    listItems.add(line);
                 }
 
-                return buffer.toString();
 
+                //gson = new Gson();
+                //Todo
+                // Add new dynamic class object?
+                //ConvertExpressRespons response = gson.fromJson(buffer.toString(), ConvertExpressRespons.class);
+
+                //Log.i(TAG,response.Header);
+                //Log.i(TAG,response.Description.get(0));
+
+                //adapter.notifyDataSetChanged();
+
+                Log.i(TAG,buffer.toString());
+                return buffer.toString();
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -131,9 +143,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if (pd.isShowing()){
-                pd.dismiss();
-            }
+//            if (pd.isShowing()){
+//                pd.dismiss();
+//            }
+
+            adapter.notifyDataSetChanged();
+
         }
     }
+
 }
