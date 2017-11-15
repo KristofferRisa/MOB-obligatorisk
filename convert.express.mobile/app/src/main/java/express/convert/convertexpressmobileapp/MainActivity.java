@@ -2,8 +2,10 @@ package express.convert.convertexpressmobileapp;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -43,9 +45,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         Log.i(TAG,"onCreate");
         adapter = null;
+
         Button goButton = (Button)findViewById(R.id.goButton);
 
         input = (EditText)findViewById(R.id.input);
@@ -67,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
             {
                 listItems.clear();
                 Log.i(TAG, input.getText().toString());
-                //listItems.add(input.getText().toString());
                 new loadData().execute("https://convert.express/api/converter?q=" + input.getText().toString());
             }
         });
@@ -103,22 +109,20 @@ public class MainActivity extends AppCompatActivity {
 
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line+"\n");
-                    Log.i(TAG,"Response: " + line);
-                    listItems.add(line);
                 }
 
-
-                //gson = new Gson();
-                //Todo
-                // Add new dynamic class object?
-                //ConvertExpressRespons response = gson.fromJson(buffer.toString(), ConvertExpressRespons.class);
-
-                //Log.i(TAG,response.Header);
-                //Log.i(TAG,response.Description.get(0));
-
-                //adapter.notifyDataSetChanged();
-
                 Log.i(TAG,buffer.toString());
+
+                Gson gson = new Gson();
+                ConvertExpressRespons[] response = gson.fromJson(buffer.toString(), ConvertExpressRespons[].class);
+
+                //Log.i(TAG,response[0].header);
+                //Log.i(TAG,response[0].description);
+
+                for (int i =0;i<response.length;i++){
+                    listItems.add(response[i].header + ": " + response[i].description);
+                    //listItems.add(response[0].description);
+                }
                 return buffer.toString();
 
             } catch (MalformedURLException e) {
