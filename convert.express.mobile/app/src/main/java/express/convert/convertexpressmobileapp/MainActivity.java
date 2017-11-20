@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     ArrayList<String> listItems;
     private JSONObject myObject;
+    private Intent i;
 
 
     @Override
@@ -49,7 +50,11 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_settings:
                 input.setText("");
-                Intent i = new Intent(this, Settings.class);
+                i = new Intent(this, Settings.class);
+                startActivity(i);
+                return true;
+            case R.id.menu_About:
+                i = new Intent(this, About.class);
                 startActivity(i);
                 return true;
             default:
