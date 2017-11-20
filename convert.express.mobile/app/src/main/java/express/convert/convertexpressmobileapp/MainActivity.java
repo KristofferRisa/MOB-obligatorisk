@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import com.google.gson.Gson;
+import android.content.Intent;
 
 import org.json.*;
 
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> listItems;
     private JSONObject myObject;
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -43,7 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        //return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                input.setText("");
+                Intent i = new Intent(this, Settings.class);
+                startActivity(i);
+                return true;
+            default:
+                return true;
+        }
     }
 
     @Override
@@ -86,6 +97,11 @@ public class MainActivity extends AppCompatActivity {
                 new loadData().execute("https://convert.express/api/converter?q=" + input.getText().toString());
             }
         });
+    }
+
+    public void GoToSettings(MenuItem item) {
+        Intent i = new Intent(this, Settings.class);
+        startActivity(i);
     }
 
 
