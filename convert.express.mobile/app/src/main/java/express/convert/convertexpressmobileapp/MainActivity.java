@@ -3,14 +3,17 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-
 import com.google.gson.Gson;
+import android.content.Intent;
 
 import org.json.*;
 
@@ -19,7 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -33,6 +35,28 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> listItems;
     private JSONObject myObject;
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                input.setText("");
+                Intent i = new Intent(this, Settings.class);
+                startActivity(i);
+                return true;
+            default:
+                return true;
+        }
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -44,13 +68,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
         Log.i(TAG,"onCreate");
         adapter = null;
+
         Button goButton = (Button)findViewById(R.id.goButton);
 
         input = (EditText)findViewById(R.id.input);
         listItems = new ArrayList<String>();
-        //listItems.add("TEST");
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1
                 , listItems);
@@ -67,10 +94,14 @@ public class MainActivity extends AppCompatActivity {
             {
                 listItems.clear();
                 Log.i(TAG, input.getText().toString());
-                //listItems.add(input.getText().toString());
                 new loadData().execute("https://convert.express/api/converter?q=" + input.getText().toString());
             }
         });
+    }
+
+    public void GoToSettings(MenuItem item) {
+        Intent i = new Intent(this, Settings.class);
+        startActivity(i);
     }
 
 
@@ -103,26 +134,22 @@ public class MainActivity extends AppCompatActivity {
 
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line+"\n");
-                    Log.i(TAG,"Response: " + line);
-                    listItems.add(line);
                 }
 
-
-                //gson = new Gson();
-                //Todo
-                // Add new dynamic class object?
-                //ConvertExpressRespons response = gson.fromJson(buffer.toString(), ConvertExpressRespons.class);
-
-                //Log.i(TAG,response.Header);
-                //Log.i(TAG,response.Description.get(0));
-
-                //adapter.notifyDataSetChanged();
-
                 Log.i(TAG,buffer.toString());
+
+                Gson gson = new Gson();
+                ConvertExpressRespons[] response = gson.fromJson(buffer.toString(), ConvertExpressRespons[].class);
+
+                //Log.i(TAG,response[0].header);
+                //Log.i(TAG,response[0].description);
+
+                for (int i =0;i<response.length;i++){
+                    listItems.add(response[i].header + ": " + response[i].description);
+                    //listItems.add(response[0].description);
+                }
                 return buffer.toString();
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {

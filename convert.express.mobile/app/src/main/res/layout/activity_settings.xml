@@ -14,17 +14,6 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <EditText
-        android:id="@+id/input"
-        android:layout_width="262dp"
-        android:layout_height="57dp"
-        android:layout_below="@+id/my_toolbar"
-        android:layout_marginTop="12dp"
-        android:layout_toStartOf="@+id/goButton"
-        android:ems="10"
-        android:hint="try anything"
-        android:inputType="text" />
-
     <Button
         android:id="@+id/goButton"
         android:layout_width="91dp"
@@ -36,13 +25,6 @@
         android:layout_marginEnd="14dp"
         android:layout_marginTop="6dp" />
 
-    <ListView
-        android:id="@+id/results"
-        android:layout_width="wrap_content"
-        android:layout_height="450dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/goButton"
-        android:layout_marginTop="28dp" />
 
 </RelativeLayout>
 
