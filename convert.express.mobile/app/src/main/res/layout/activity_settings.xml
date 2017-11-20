@@ -14,16 +14,6 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <Button
-        android:id="@+id/goButton"
-        android:layout_width="91dp"
-        android:layout_height="57dp"
-        android:text="GO"
-        android:layout_marginLeft="83dp"
-        android:layout_alignTop="@+id/input"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="14dp"
-        android:layout_marginTop="6dp" />
 
 
 </RelativeLayout>
