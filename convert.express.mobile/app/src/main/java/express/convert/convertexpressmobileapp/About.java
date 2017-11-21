@@ -38,10 +38,10 @@ public class About extends AppCompatActivity {
                 i = new Intent(this, Settings.class);
                 startActivity(i);
                 return true;
-//            case R.id.menu_About:
-//                i = new Intent(this, About.class);
-//                startActivity(i);
-//                return true;
+            case R.id.history:
+                i = new Intent(this, History.class);
+                startActivity(i);
+                return true;
             default:
                 return true;
         }
