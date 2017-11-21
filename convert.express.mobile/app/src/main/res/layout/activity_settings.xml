@@ -9,10 +9,9 @@
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <CheckBox
         android:id="@+id/lagreCheckBox"
@@ -22,7 +21,7 @@
         android:layout_below="@+id/my_toolbar"
         android:layout_marginStart="44dp"
         android:layout_marginTop="116dp"
-        android:text="Lagre søk"
+        android:text="Keep history"
         android:textSize="25sp" />
 
     <Button
@@ -34,7 +33,7 @@
         android:layout_alignStart="@+id/lagreCheckBox"
         android:layout_marginBottom="163dp"
         android:background="@android:color/holo_red_light"
-        android:text="Slett historikk" />
+        android:text="Delete history" />
 
     <TextView
         android:id="@+id/textView2"
@@ -54,7 +53,8 @@
         android:layout_alignStart="@+id/slettButton"
         android:layout_alignTop="@+id/slettButton"
         android:layout_marginTop="79dp"
-        android:text="Lukk" />
+        android:onClick="closeAbout"
+        android:text="Close" />
 
 
 </RelativeLayout>

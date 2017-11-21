@@ -1,81 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="express.convert.convertexpressmobileapp.About"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
-
-
-    <Button
-        android:id="@+id/lukkButton"
-        android:layout_width="191dp"
-        android:layout_height="63dp"
-        android:onClick="goHome"
-        android:text="Lukk"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="394dp" />
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/my_toolbar"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="21dp"
         android:text="About"
-        android:textSize="36sp"
-        tools:layout_editor_absoluteX="9dp"
-        tools:layout_editor_absoluteY="43dp" />
+        android:textSize="45sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="20dp"
         android:text="Convert.Express"
         android:textSize="25sp"
-        android:textStyle="bold|italic"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="149dp" />
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="56dp"
+        android:foregroundGravity="center"
+        android:minLines="3"
+        android:text="A simple conversion application that utilize the power of convert.express API for boot easy and advanced conversions." />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="En enkel konverterings app for både avanserte og enkle transformeringer og konverteringer. "
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="198dp" />
+        android:layout_alignStart="@+id/textView4"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="13dp"
+        android:text="Se hjemmeside: " />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Se hjemmeside:  "
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="275dp" />
+        android:layout_alignBaseline="@+id/textView5"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_toEndOf="@+id/textView"
+        android:text="convert.express"
+        android:textStyle="bold|italic" />
 
-    <TextView
-        android:id="@+id/textView7"
+    <Button
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="convert.express"
-        android:textAllCaps="false"
-        android:textColor="@android:color/holo_green_light"
-        android:textStyle="bold|italic"
-        tools:layout_editor_absoluteX="137dp"
-        tools:layout_editor_absoluteY="275dp" />
+        android:layout_alignStart="@+id/textView5"
+        android:layout_below="@+id/textView5"
+        android:layout_marginTop="77dp"
+        android:onClick="closeAbout"
+        android:text="Close" />
 
 
 </RelativeLayout>
+
