@@ -79,6 +79,5 @@
             android:onClick="closeAbout"
             android:text="Close" />
 
-
     </RelativeLayout>
 </ScrollView>

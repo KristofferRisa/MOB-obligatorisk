@@ -22,12 +22,10 @@ public class History extends AppCompatActivity {
     private Intent i;
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item) {
-        //return super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.menu_settings:
                 i = new Intent(this, Settings.class);
@@ -50,26 +48,18 @@ public class History extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         HistoryDbHelper dbHelper = new HistoryDbHelper(getApplicationContext());
-        //Read from db
+        //Leser fra database
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-// Define a projection that specifies which columns from the database
-// you will actually use after this query.
         String[] projection = {
                 HistoryDbContext.HistoryEntry._ID,
                 HistoryDbContext.HistoryEntry.COLUMN_NAME_QUERY
         };
 
-        // Filter results WHERE "title" = 'My Title'
-
+        // Cursor som henter data fra databse
         Cursor cursor = db.query(
-                HistoryDbContext.HistoryEntry.TABLE_NAME,                     // The table to query
-                projection,                               // The columns to return
-                null,                                // The columns for the WHERE clause
-                null,                            // The values for the WHERE clause
-                null,                                     // don't group the rows
-                null,                                     // don't filter by row groups
-                null                       // The sort order
+                HistoryDbContext.HistoryEntry.TABLE_NAME,
+                projection,null,null,
+                null,null,null
         );
 
         List queries = new ArrayList<>();

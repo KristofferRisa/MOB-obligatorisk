@@ -20,12 +20,10 @@ import android.widget.CompoundButton;
 public class Settings extends AppCompatActivity {
 
     public static final String TAG = "Convert.Express.Mobile";
-
     private Intent i;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
@@ -63,6 +61,10 @@ public class Settings extends AppCompatActivity {
                 i = new Intent(this, About.class);
                 startActivity(i);
                 return true;
+            case R.id.history:
+                i = new Intent(this, History.class);
+                startActivity(i);
+                return true;
             default:
                 return true;
         }
@@ -72,16 +74,11 @@ public class Settings extends AppCompatActivity {
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                switch (which){
-                    case DialogInterface.BUTTON_POSITIVE:
-                        HistoryDbHelper dbHlper = new HistoryDbHelper(getApplicationContext());
-                        SQLiteDatabase db = dbHlper.getWritableDatabase();
-                        db.delete(HistoryDbContext.HistoryEntry.TABLE_NAME,null,null);
-                        break;
-
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        //No button clicked
-                        break;
+                if(which == DialogInterface.BUTTON_POSITIVE)
+                {
+                    HistoryDbHelper dbHlper = new HistoryDbHelper(getApplicationContext());
+                    SQLiteDatabase db = dbHlper.getWritableDatabase();
+                    db.delete(HistoryDbContext.HistoryEntry.TABLE_NAME,null,null);
                 }
             }
         };

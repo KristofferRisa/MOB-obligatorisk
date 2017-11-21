@@ -115,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
                     HistoryDbHelper dbHelper = new HistoryDbHelper(getApplicationContext());
                     // Gets the data repository in write mode
                     SQLiteDatabase db = dbHelper.getWritableDatabase();
-                    // Create a new map of values, where column names are the keys
                     ContentValues values = new ContentValues();
                     values.put(HistoryDbContext.HistoryEntry.COLUMN_NAME_QUERY, query);
                     // Insert the new row, returning the primary key value of the new row

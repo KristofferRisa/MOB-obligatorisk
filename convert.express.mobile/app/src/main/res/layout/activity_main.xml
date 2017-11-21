@@ -24,13 +24,13 @@
             android:ems="10"
             android:hint="try anything"
             android:inputType="text" />
+
         <Button
             android:id="@+id/goButton"
             android:layout_width="100dp"
             android:layout_height="57dp"
             android:layout_toRightOf="@id/input"
             android:layout_below="@+id/my_toolbar"
-
             android:text="GO" />
 
         <ProgressBar
@@ -41,10 +41,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="192dp"
             android:visibility="invisible" />
-
-
-
-
 
         <ListView
             android:id="@+id/results"

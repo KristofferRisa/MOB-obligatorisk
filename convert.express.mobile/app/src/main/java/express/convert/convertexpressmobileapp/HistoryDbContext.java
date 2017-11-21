@@ -2,7 +2,6 @@ package express.convert.convertexpressmobileapp;
 
 import android.provider.BaseColumns;
 
-
 public final class HistoryDbContext {
     private HistoryDbContext() {}
 

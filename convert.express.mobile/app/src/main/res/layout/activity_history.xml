@@ -43,6 +43,5 @@
             android:onClick="closeHistory"
             android:text="Close" />
 
-
     </RelativeLayout>
 </ScrollView>
