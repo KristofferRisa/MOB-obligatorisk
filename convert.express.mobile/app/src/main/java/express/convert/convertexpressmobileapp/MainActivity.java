@@ -29,7 +29,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "Convert.Express.Mobile";
-
     EditText input;
     ListView results;
     ArrayAdapter<String> adapter;
@@ -37,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private JSONObject myObject;
     private Intent i;
     private boolean saveHistory;
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
         adapter = null;
 
         //Laster inn settings
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences("convert.express", android.content.Context.MODE_PRIVATE);
+        SharedPreferences preferences = getApplicationContext()
+                .getSharedPreferences("convert.express", android.content.Context.MODE_PRIVATE);
         saveHistory = preferences.getBoolean("SaveHistory", false);
         Log.i(TAG,"SaveHistory = " + saveHistory);
 
@@ -113,10 +112,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, query);
                 if(saveHistory){
                     HistoryDbHelper dbHelper = new HistoryDbHelper(getApplicationContext());
+
                     // Gets the data repository in write mode
                     SQLiteDatabase db = dbHelper.getWritableDatabase();
                     ContentValues values = new ContentValues();
                     values.put(HistoryDbContext.HistoryEntry.COLUMN_NAME_QUERY, query);
+
                     // Insert the new row, returning the primary key value of the new row
                     long newRowId = db.insert(HistoryDbContext.HistoryEntry.TABLE_NAME, null, values);
                     Log.i(TAG, "Saved query in SQLite");
