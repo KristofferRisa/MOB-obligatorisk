@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="express.convert.convertexpressmobileapp.About">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="express.convert.convertexpressmobileapp.About"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,7 +21,61 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_about" />
+
+    <Button
+        android:id="@+id/lukkButton"
+        android:layout_width="191dp"
+        android:layout_height="63dp"
+        android:onClick="goHome"
+        android:text="Lukk"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="394dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="43dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Convert.Express"
+        android:textSize="25sp"
+        android:textStyle="bold|italic"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="149dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="En enkel konverterings app for både avanserte og enkle transformeringer og konverteringer. "
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="198dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Se hjemmeside:  "
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="275dp" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="convert.express"
+        android:textAllCaps="false"
+        android:textColor="@android:color/holo_green_light"
+        android:textStyle="bold|italic"
+        tools:layout_editor_absoluteX="137dp"
+        tools:layout_editor_absoluteY="275dp" />
 
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

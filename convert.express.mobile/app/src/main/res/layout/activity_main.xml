@@ -14,12 +14,21 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="192dp"
+        android:visibility="invisible" />
+
     <EditText
         android:id="@+id/input"
         android:layout_width="262dp"
         android:layout_height="57dp"
         android:layout_below="@+id/my_toolbar"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="29dp"
         android:layout_toStartOf="@+id/goButton"
         android:ems="10"
         android:hint="try anything"
@@ -29,12 +38,11 @@
         android:id="@+id/goButton"
         android:layout_width="91dp"
         android:layout_height="57dp"
-        android:text="GO"
-        android:layout_marginLeft="83dp"
-        android:layout_alignTop="@+id/input"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="14dp"
-        android:layout_marginTop="6dp" />
+        android:layout_alignTop="@+id/input"
+        android:layout_marginEnd="13dp"
+        android:background="@android:color/holo_green_light"
+        android:text="GO" />
 
     <ListView
         android:id="@+id/results"

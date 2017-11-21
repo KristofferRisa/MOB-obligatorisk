@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 listItems.clear();
                 Log.i(TAG, input.getText().toString());
                 new loadData().execute("https://convert.express/api/converter?q=" + input.getText().toString());
+                findViewById(R.id.loading).setVisibility(View.VISIBLE);
             }
         });
     }
@@ -175,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            findViewById(R.id.loading).setVisibility(View.GONE);
 //            if (pd.isShowing()){
 //                pd.dismiss();
 //            }
