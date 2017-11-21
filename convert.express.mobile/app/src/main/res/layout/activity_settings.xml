@@ -1,20 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
+    android:layout_height="fill_parent" >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:layout_below="@+id/my_toolbar"
+            android:text="Settings"
+            android:textSize="50sp" />
+
+        <CheckBox
+            android:id="@+id/keepHistoryCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView2"
+            android:layout_margin="25dp"
+            android:text="Keep history"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/slettButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/keepHistoryCheckBox"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="25dp"
+            android:width="155dp"
+            android:background="@android:color/holo_red_light"
+            android:onClick="deleteHistory"
+            android:text="Delete history"
+            android:textAlignment="center" />
 
 
+        <Button
+            android:id="@+id/lukkButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/slettButton"
+            android:layout_below="@+id/slettButton"
+            android:layout_margin="25dp"
+            android:width="155dp"
+            android:onClick="closeSettings"
+            android:text="Close" />
 
-</RelativeLayout>
 
+    </RelativeLayout>
+</ScrollView>

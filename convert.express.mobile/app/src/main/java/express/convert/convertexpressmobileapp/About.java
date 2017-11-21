@@ -26,7 +26,7 @@ public class About extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
 
     }
@@ -38,16 +38,16 @@ public class About extends AppCompatActivity {
                 i = new Intent(this, Settings.class);
                 startActivity(i);
                 return true;
-//            case R.id.menu_About:
-//                i = new Intent(this, About.class);
-//                startActivity(i);
-//                return true;
+            case R.id.history:
+                i = new Intent(this, History.class);
+                startActivity(i);
+                return true;
             default:
                 return true;
         }
     }
 
-    public void goHome(View view) {
+    public void closeAbout(View view) {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }

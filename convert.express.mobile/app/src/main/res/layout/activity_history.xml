@@ -15,44 +15,34 @@
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <EditText
-            android:id="@+id/input"
-            android:layout_width="232dp"
-            android:layout_height="57dp"
-            android:layout_below="@+id/my_toolbar"
-            android:layout_marginLeft="22dp"
-            android:ems="10"
-            android:hint="try anything"
-            android:inputType="text" />
-        <Button
-            android:id="@+id/goButton"
-            android:layout_width="100dp"
-            android:layout_height="57dp"
-            android:layout_toRightOf="@id/input"
-            android:layout_below="@+id/my_toolbar"
-
-            android:text="GO" />
-
-        <ProgressBar
-            android:id="@+id/loading"
+        <TextView
+            android:id="@+id/resultsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/my_toolbar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="192dp"
-            android:visibility="invisible" />
-
-
-
-
+            android:layout_marginStart="20dp"
+            android:text="History"
+            android:textSize="30sp" />
 
         <ListView
-            android:id="@+id/results"
+            android:id="@+id/historyResults"
             android:layout_width="wrap_content"
-            android:layout_height="450dp"
+            android:layout_height="350dp"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/goButton"
+            android:layout_below="@+id/resultsText"
             android:layout_marginTop="28dp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/historyResults"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:onClick="closeHistory"
+            android:text="Close" />
+
 
     </RelativeLayout>
 </ScrollView>

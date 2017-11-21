@@ -1,5 +1,8 @@
 package express.convert.convertexpressmobileapp;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,9 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import com.google.gson.Gson;
 import android.content.Intent;
-
 import org.json.*;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> listItems;
     private JSONObject myObject;
     private Intent i;
+    private boolean saveHistory;
 
 
     @Override
@@ -51,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_settings:
                 input.setText("");
                 i = new Intent(this, Settings.class);
+                startActivity(i);
+                return true;
+            case R.id.history:
+                i = new Intent(this, History.class);
                 startActivity(i);
                 return true;
             case R.id.menu_About:
@@ -79,6 +85,11 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG,"onCreate");
         adapter = null;
 
+        //Laster inn settings
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("convert.express", android.content.Context.MODE_PRIVATE);
+        saveHistory = preferences.getBoolean("SaveHistory", false);
+        Log.i(TAG,"SaveHistory = " + saveHistory);
+
         Button goButton = (Button)findViewById(R.id.goButton);
 
         input = (EditText)findViewById(R.id.input);
@@ -98,17 +109,25 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view)
             {
                 listItems.clear();
-                Log.i(TAG, input.getText().toString());
+                String query = input.getText().toString();
+                Log.i(TAG, query);
+                if(saveHistory){
+                    HistoryDbHelper dbHelper = new HistoryDbHelper(getApplicationContext());
+                    // Gets the data repository in write mode
+                    SQLiteDatabase db = dbHelper.getWritableDatabase();
+                    // Create a new map of values, where column names are the keys
+                    ContentValues values = new ContentValues();
+                    values.put(HistoryDbContext.HistoryEntry.COLUMN_NAME_QUERY, query);
+                    // Insert the new row, returning the primary key value of the new row
+                    long newRowId = db.insert(HistoryDbContext.HistoryEntry.TABLE_NAME, null, values);
+                    Log.i(TAG, "Saved query in SQLite");
+                }
+
                 new loadData().execute("https://convert.express/api/converter?q=" + input.getText().toString());
+                findViewById(R.id.loading).setVisibility(View.VISIBLE);
             }
         });
     }
-
-    public void GoToSettings(MenuItem item) {
-        Intent i = new Intent(this, Settings.class);
-        startActivity(i);
-    }
-
 
     class loadData extends AsyncTask<String, String, String> {
 
@@ -140,18 +159,11 @@ public class MainActivity extends AppCompatActivity {
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line+"\n");
                 }
-
-                Log.i(TAG,buffer.toString());
-
                 Gson gson = new Gson();
                 ConvertExpressRespons[] response = gson.fromJson(buffer.toString(), ConvertExpressRespons[].class);
 
-                //Log.i(TAG,response[0].header);
-                //Log.i(TAG,response[0].description);
-
                 for (int i =0;i<response.length;i++){
                     listItems.add(response[i].header + ": " + response[i].description);
-                    //listItems.add(response[0].description);
                 }
                 return buffer.toString();
 
@@ -175,10 +187,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-//            if (pd.isShowing()){
-//                pd.dismiss();
-//            }
-
+            // Skjuler spinner
+            findViewById(R.id.loading).setVisibility(View.GONE);
+            // Oppdatere liste
             adapter.notifyDataSetChanged();
 
         }
