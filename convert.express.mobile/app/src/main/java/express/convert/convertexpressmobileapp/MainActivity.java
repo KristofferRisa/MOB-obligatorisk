@@ -105,12 +105,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void GoToSettings(MenuItem item) {
-        Intent i = new Intent(this, Settings.class);
-        startActivity(i);
-    }
-
-
     class loadData extends AsyncTask<String, String, String> {
 
         ProgressDialog pd;

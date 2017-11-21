@@ -1,54 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
+    android:layout_height="fill_parent" >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:layout_height="wrap_content">
 
-    <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/my_toolbar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="192dp"
-        android:visibility="invisible" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <EditText
-        android:id="@+id/input"
-        android:layout_width="262dp"
-        android:layout_height="57dp"
-        android:layout_below="@+id/my_toolbar"
-        android:layout_marginTop="29dp"
-        android:layout_toStartOf="@+id/goButton"
-        android:ems="10"
-        android:hint="try anything"
-        android:inputType="text" />
+        <EditText
+            android:id="@+id/input"
+            android:layout_width="232dp"
+            android:layout_height="57dp"
+            android:layout_below="@+id/my_toolbar"
+            android:layout_marginLeft="22dp"
+            android:ems="10"
+            android:hint="try anything"
+            android:inputType="text" />
+        <Button
+            android:id="@+id/goButton"
+            android:layout_width="100dp"
+            android:layout_height="57dp"
+            android:layout_toRightOf="@id/input"
+            android:layout_below="@+id/my_toolbar"
 
-    <Button
-        android:id="@+id/goButton"
-        android:layout_width="91dp"
-        android:layout_height="57dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/input"
-        android:layout_marginEnd="15dp"
-        android:text="GO" />
+            android:text="GO" />
 
-    <ListView
-        android:id="@+id/results"
-        android:layout_width="wrap_content"
-        android:layout_height="450dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/goButton"
-        android:layout_marginTop="28dp" />
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/my_toolbar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="192dp"
+            android:visibility="invisible" />
 
-</RelativeLayout>
 
+
+
+
+        <ListView
+            android:id="@+id/results"
+            android:layout_width="wrap_content"
+            android:layout_height="450dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/goButton"
+            android:layout_marginTop="28dp" />
+
+    </RelativeLayout>
+</ScrollView>
